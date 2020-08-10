@@ -13,9 +13,9 @@ const HomePage = ({navigation}) => {
                 source={require('../assets/images/welcome.png')}
             />
             <Button
+                style={styles.buttonStyle}
                 onPress={() => navigation.navigate('Planner')}
                 title="Start Planning"
-                raised
             />
         </View>
     )
@@ -34,6 +34,9 @@ const styles = StyleSheet.create({
         width: screenWidth,
         height: 500,
         marginBottom: 50,
+    },
+    buttonStyle: {
+        margin: 20,
     }
 })
 

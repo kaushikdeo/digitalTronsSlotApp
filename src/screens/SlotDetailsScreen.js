@@ -1,8 +1,9 @@
 import React, {useState} from 'react'
-import { View, Text, TextInput, Alert, KeyboardAvoidingView, StyleSheet } from 'react-native';
+import { View, Text, TextInput, Alert, KeyboardAvoidingView, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
 import { updateSlot } from '../store/actions/slotActions';
 import { Input, Button } from 'react-native-elements';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
     console.log('ROUTE', route);
@@ -33,7 +34,9 @@ const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
         behavior={Platform.OS == "ios" ? "padding" : "height"}
         style={styles.container}
         >
-            <View style={{paddingTop: 50}}>
+            <SafeAreaView style={styles.container}>
+                    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+            <View style={{paddingTop: 50, paddingBottom: 150, justifyContent: 'flex-end'}}>
                 <Text style={{fontSize: 20, textAlign: 'center', paddingBottom: 20}}>Enter Slot Details for {route.params.slotInfo.item.slotTimeString}</Text>
                 <Input
                     label='First Name'
@@ -77,7 +80,15 @@ const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
                         />
                     </View>
                 </View>
+                <View style={styles.fullButtonStyle}>
+                    <Button
+                        title="Open Gallery"
+                        raised
+                    />
+                </View>
             </View>
+            </TouchableWithoutFeedback>
+            </SafeAreaView>
         </KeyboardAvoidingView>
     )
 }
@@ -94,7 +105,12 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around'
     },
     buttonStyle: {
+        marginTop: 20,
         width: '40%',
         height: 40
+    },
+    fullButtonStyle: {
+        marginTop: 60,
+        padding: 20,
     }
 })

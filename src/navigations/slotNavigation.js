@@ -13,16 +13,17 @@ const SlotNavigation = () => {
             <Stack.Screen 
                 name="Planner App"
                 component={HomePage}
-                options={{headerShown: false}}
+                options={{headerShown: false, cardStyle: {backgroundColor: 'white'}}}
             />
             <Stack.Screen 
                 name="Planner"
                 component={SlotScreen}
+                options={{ title: 'Plan Your Day', cardStyle: {backgroundColor: 'white'} }}
             />
             <Stack.Screen 
                 name="Slot"
                 component={SlotDetailsScreen}
-                options={({ route }) => ({ title: route.params.title })}
+                options={({ route }) => ({ title: route.params.slotInfo.item.slotTimeString, cardStyle: {backgroundColor: 'white'} })}
             />
         </Stack.Navigator>
     );

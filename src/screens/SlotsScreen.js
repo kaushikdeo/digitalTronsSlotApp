@@ -20,6 +20,7 @@ class SlotsScreen extends Component {
                         <FlatList
                             data={slotsData.slots}
                             keyExtractor={(slot, i) => i}
+                            showsVerticalScrollIndicator={false}
                             renderItem={(item, index) => {
                                 console.log('item', item.item.slotDetails.firstName);
                                 return (

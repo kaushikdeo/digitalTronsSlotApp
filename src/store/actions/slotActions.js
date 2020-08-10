@@ -100,7 +100,6 @@ export const updateSlot = (slotData) => dispatch => {
     getData('slots')
         .then(res => {
             const fetchedSlots = res;
-            console.log('fetchedSlotsfetchedSlotsfetchedSlots', fetchedSlots);
             const slotObj = {
                 slotTimeString: fetchedSlots[slotData.slotIndex].slotTimeString,
                 slotDetails: {
@@ -109,9 +108,7 @@ export const updateSlot = (slotData) => dispatch => {
                     contact: slotData.slotData.contactNumber,
                 }
             }
-            console.log('slotObjslotObjslotObj', slotObj);
             fetchedSlots[slotData.slotIndex] = slotObj;
-            console.log('fetchedSlots ACTION', fetchedSlots);
             storeData('slots', fetchedSlots)
                 .then(() => {
                     dispatch({
