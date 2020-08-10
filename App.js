@@ -9,36 +9,28 @@
 import React from 'react';
 import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
+import { Provider } from 'react-redux';
+import store from './src/store';
 
 import {
-  SafeAreaView,
   StyleSheet,
-  ScrollView,
   View,
   Text,
-  StatusBar,
 } from 'react-native';
 
 import {
-  Header,
-  LearnMoreLinks,
   Colors,
-  DebugInstructions,
-  ReloadInstructions,
 } from 'react-native/Libraries/NewAppScreen';
 
 import SlotNavigation from './src/navigations/slotNavigation';
 
-const App: () => React$Node = () => {
+const App = () => {
   return (
-    <NavigationContainer>
-            {global.HermesInternal == null ? null : (
-                <View style={styles.engine}>
-                    <Text style={styles.footer}>Engine: Hermes</Text>
-                </View>
-            )}
+    <Provider store={store}>
+        <NavigationContainer>
             <SlotNavigation />
-    </NavigationContainer>
+        </NavigationContainer>
+    </Provider>
   );
 };
 

@@ -1,4 +1,4 @@
-import { FETCH_SLOTS_STARTED, FETCH_SLOTS, UPDATE_SLOT } from '../actions/types';
+import { FETCH_SLOTS_STARTED, FETCH_SLOTS, UPDATE_SLOT, SLOTS_ERROR } from '../actions/types';
 
 const initialState = {
     slots: [],
@@ -7,7 +7,7 @@ const initialState = {
     errorText: '',
 };
 
-export default function(state=initialState, action) {
+export default function(state = initialState, action) {
     switch (action.type) {
         case FETCH_SLOTS_STARTED:
             return {
@@ -17,8 +17,8 @@ export default function(state=initialState, action) {
         case FETCH_SLOTS:
             return {
                 ...state,
-                isLoading: false,
                 slots: action.payload,
+                isLoading: false,
             };
         case UPDATE_SLOT:
             return state;
@@ -29,6 +29,6 @@ export default function(state=initialState, action) {
                 errorText: action.payload
             }
         default:
-            break;
+            return state;
     }
 }

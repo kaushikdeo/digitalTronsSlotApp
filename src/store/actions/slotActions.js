@@ -1,4 +1,4 @@
-import { FETCH_SLOTS_STARTED, FETCH_SLOTS, UPDATE_SLOT } from './types';
+import { FETCH_SLOTS_STARTED, FETCH_SLOTS, UPDATE_SLOT, SLOTS_ERROR } from './types';
 import { storeData, fetchData, getData } from '../../helpers/asyncStorageHelper';
 
 const defaultSlots = [
@@ -60,7 +60,7 @@ const defaultSlots = [
     },
 ];
 
-const fetchSlots = () => dispatch => {
+export const fetchSlots = () => dispatch => {
     console.log('calling slots Action');
     //start fetching slots from async Storage
     dispatch({
@@ -75,11 +75,11 @@ const fetchSlots = () => dispatch => {
                     payload: res
                 })
             } else {
-                storeData('slots', slots)
+                storeData('slots', defaultSlots)
                     .then(() => {
                         dispatch({
                             type: FETCH_SLOTS,
-                            payload: slots,
+                            payload: defaultSlots,
                         })
                     })
                     .catch(error => dispatch({
