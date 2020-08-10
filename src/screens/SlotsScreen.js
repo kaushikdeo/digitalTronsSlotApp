@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, Text } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { fetchSlots } from '../store/actions/slotActions';
 
@@ -9,12 +9,29 @@ class SlotsScreen extends Component {
     }
 
     render() {
+        console.log('this.props.slots', this.props.slotsData);
+        const {slotsData} = this.props;
         return (
-            <View>
-                <Text>Slots Screen</Text>
-            </View>
+            !slotsData.isLoading ? 
+            (
+                slotsData.slots && slotsData.slots.length ?
+                (
+                    <View>
+                        <Text>Slots Screen</Text>
+                    </View>
+                ): 
+                (
+                    <View>
+                        <Text>No Slots Data</Text>
+                    </View>
+                )
+            ) : <ActivityIndicator size="large" />
         );
     }
 }
 
-export default connect(null, { fetchSlots })(SlotsScreen);
+const mapStateToProps = state => ({
+    slotsData: state.slots,
+})
+
+export default connect(mapStateToProps, { fetchSlots })(SlotsScreen);
