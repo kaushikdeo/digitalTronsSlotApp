@@ -93,3 +93,32 @@ export const fetchSlots = () => dispatch => {
             payload: er,
         }));
 }
+
+export const updateSlot = (slotData) => dispatch => {
+    console.log('slotDataslotData', slotData);
+    console.log('slotDataslotData', slotData.slotData.firstName);
+    getData('slots')
+        .then(res => {
+            const fetchedSlots = res;
+            console.log('fetchedSlotsfetchedSlotsfetchedSlots', fetchedSlots);
+            const slotObj = {
+                slotTimeString: fetchedSlots[slotData.slotIndex].slotTimeString,
+                slotDetails: {
+                    firstName: slotData.slotData.firstName,
+                    lastName: slotData.slotData.lastName,
+                    contact: slotData.slotData.contactNumber,
+                }
+            }
+            console.log('slotObjslotObjslotObj', slotObj);
+            fetchedSlots[slotData.slotIndex] = slotObj;
+            console.log('fetchedSlots ACTION', fetchedSlots);
+            storeData('slots', fetchedSlots)
+                .then(() => {
+                    dispatch({
+                        type: UPDATE_SLOT,
+                        payload: fetchedSlots,
+                    })
+                })
+        }
+    );
+}

@@ -1,10 +1,17 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, Image } from 'react-native';
+import {Button} from 'react-native-elements';
+
+const screenWidth = Dimensions.width;
 
 const HomePage = ({navigation}) => {
     return (
-        <View style={{ flex: 1 }}>
-            <Text style={styles.sectionTitle}>Welcome to the planner App</Text>
+        <View>
+            <Text style={styles.welcomeText}>Welcome to the planner App</Text>
+            <Image
+                style={styles.welcomeImage}
+                source={require('../assets/images/welcome.png')}
+            />
             <Button
                 onPress={() => navigation.navigate('Planner')}
                 title="Start Planning"
@@ -14,14 +21,20 @@ const HomePage = ({navigation}) => {
     )
 };
 
-export default HomePage;
-
 const styles = StyleSheet.create({
-    sectionTitle: {
-      fontSize: 24,
-      fontWeight: '600',
-      color: 'black',
-      textAlign: 'center',
-      margin: 20
+    welcomeText: {
+        fontSize: 20,
+        color: '#27c5a3',
+        fontWeight: '900',
+        textAlign: 'center',
+        marginTop: 100,
+        marginBottom: 50,
     },
+    welcomeImage: {
+        width: screenWidth,
+        height: 500,
+        marginBottom: 50,
+    }
 })
+
+export default HomePage;

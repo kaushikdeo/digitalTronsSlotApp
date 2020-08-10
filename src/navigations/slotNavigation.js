@@ -13,6 +13,7 @@ const SlotNavigation = () => {
             <Stack.Screen 
                 name="Planner App"
                 component={HomePage}
+                options={{headerShown: false}}
             />
             <Stack.Screen 
                 name="Planner"

@@ -21,7 +21,10 @@ export default function(state = initialState, action) {
                 isLoading: false,
             };
         case UPDATE_SLOT:
-            return state;
+            return {
+                ...state,
+                slots: action.payload,
+            };
         case SLOTS_ERROR:
             return {
                 ...state,

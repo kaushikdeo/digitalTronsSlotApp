@@ -6,11 +6,11 @@ import { Input, Button } from 'react-native-elements';
 
 const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
     console.log('ROUTE', route);
-    const [firstName, setFirstName] = useState(route.params.slotInfo.item.firstName);
+    const [firstName, setFirstName] = useState(route.params.slotInfo.item.slotDetails.firstName);
     const [firstNameError, setFirstNameError] = useState('');
-    const [lastName, setLastName] = useState(route.params.slotInfo.item.lastName);
+    const [lastName, setLastName] = useState(route.params.slotInfo.item.slotDetails.lastName);
     const [lastNameError, setLastNameError] = useState('');
-    const [contactNumber, setContactNumber] = useState(route.params.slotInfo.item.contact);
+    const [contactNumber, setContactNumber] = useState(route.params.slotInfo.item.slotDetails.contact);
     const [contactNumberError, setContactNumberError] = useState('');
 
     const handleSubmit = () => {
@@ -44,10 +44,10 @@ const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
                     errorMessage={firstNameError}
                 />
                 <Input
-                    label='Doe'
+                    label='Last Name'
                     value={lastName}
                     onChangeText={text => setLastName(text.trim())}
-                    placeholder='Enter Your Last Name'
+                    placeholder='Doe'
                     errorStyle={{ color: 'red' }}
                     errorMessage={lastNameError}
                 />
@@ -55,7 +55,7 @@ const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
                     label='Contact Number'
                     value={contactNumber}
                     onChangeText={text => setContactNumber(text.trim())}
-                    placeholder='+919999999999'
+                    placeholder='+91 9999999999'
                     errorStyle={{ color: 'red' }}
                     errorMessage={contactNumberError}
                 />
