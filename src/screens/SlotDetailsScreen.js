@@ -1,9 +1,18 @@
 import React, {useState} from 'react'
 import { View, Text, TextInput, Alert, KeyboardAvoidingView, StyleSheet, SafeAreaView, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { connect } from 'react-redux';
+import ImagePicker from 'react-native-image-picker';
 import { updateSlot } from '../store/actions/slotActions';
-import { Input, Button } from 'react-native-elements';
+import { Input, Button, Image } from 'react-native-elements';
 import { ScrollView } from 'react-native-gesture-handler';
+
+const options = {
+    title: 'Select Image',
+    storageOptions: {
+      skipBackup: true,
+      path: 'images',
+    },
+  };
 
 const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
     console.log('ROUTE', route);
@@ -13,6 +22,8 @@ const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
     const [lastNameError, setLastNameError] = useState('');
     const [contactNumber, setContactNumber] = useState(route.params.slotInfo.item.slotDetails.contact);
     const [contactNumberError, setContactNumberError] = useState('');
+    const [imageSources, setImageSources] = useState([]);
+    console.log('imageSources', imageSources);
 
     const handleSubmit = () => {
         setFirstNameError('');
@@ -27,6 +38,38 @@ const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
             Alert.alert('Details Added Successfully');
             navigation.goBack();
         }
+    }
+
+    const fireImagePicker = () => {
+        let allImages = imageSources;
+        ImagePicker.showImagePicker(options, (response) => {
+            if (response.didCancel) {
+              console.log('User cancelled image picker');
+            } else if (response.error) {
+              console.log('ImagePicker Error: ', response.error);
+            } else if (response.customButton) {
+              console.log('User tapped custom button: ', response.customButton);
+            } else {
+              console.log('response.uri', response.uri);
+              allImages.push(response.uri);
+              console.log('allImages', allImages);
+              setImageSources(allImages);
+            }
+          });
+    }
+
+    const renderImages = () => {
+        console.log('I am firing', imageSources );
+        if (imageSources && imageSources.length) {
+            console.log('I am firing inside', imageSources );
+            return imageSources.map((imageLink, i) => {
+                console.log('I am firing inside inside', imageSources );
+                return (
+                    <Image key={imageLink} source={imageLink} style={{width: 100, height: 100}} />
+                )
+            })
+        }
+        return null;
     }
 
     return (
@@ -82,9 +125,13 @@ const SlotDetailsScreen = ({route, navigation, updateSlot}) => {
                 </View>
                 <View style={styles.fullButtonStyle}>
                     <Button
+                        onPress={fireImagePicker}
                         title="Open Gallery"
                         raised
                     />
+                </View>
+                <View>
+                    {renderImages()}
                 </View>
             </View>
             </TouchableWithoutFeedback>
